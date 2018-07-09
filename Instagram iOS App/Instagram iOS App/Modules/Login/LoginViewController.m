@@ -24,6 +24,15 @@
          valueForKey:kINSTAGRAM_ACCESS_TOKEN]) {
         [self performSegueWithIdentifier:@"userProfileSegue" sender:nil];
     }
+    
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
+                                     initWithTitle:@"Refresh"
+                                     style:UIBarButtonItemStylePlain
+                                     target:self
+                                     action:@selector(refresh)];
+    self.navigationItem.rightBarButtonItem = refreshButton;
+    [self.navigationItem setHidesBackButton:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,6 +45,10 @@
     [self.loginButton setHidden:false];
     [self.loginWebView setHidden:true];
     [self.loginActivityIndicatorView setHidden:true];
+}
+
+-(void)refresh {
+    [self.loginWebView reload];
 }
 
 - (IBAction)loginButtonPressed:(UIButton *)sender {

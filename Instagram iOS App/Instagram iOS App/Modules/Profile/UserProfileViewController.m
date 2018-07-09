@@ -39,6 +39,15 @@
 }
 
 -(void)logout {
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies]) {
+        NSString *domainName = [cookie domain];
+        NSRange domainRange = [domainName rangeOfString:@"instagram.com"];
+        if(domainRange.length > 0) {
+            [storage deleteCookie:cookie];
+        }
+    }
     [[NSUserDefaults standardUserDefaults] setValue:@"" forKey: kINSTAGRAM_ACCESS_TOKEN]; [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self.navigationController popViewControllerAnimated:YES];
